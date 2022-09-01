@@ -1,0 +1,49 @@
+---
+- name: Install Jenkins
+  hosts: localhost
+  become: yes
+  tasks:
+
+    - name: update apt
+      apt:
+        update_cache: yes
+
+    - name: Install openjdk-11-jre
+      apt:
+        name: openjdk-11-jre
+        state: latest
+        update_cache: yes
+  
+    - name: Java version
+      shell: java --version
+      register: Java_version
+     
+    - debug:
+        var: Java_version
+
+    - name: ensure the jenkins apt repository key is installed
+      apt_key: 
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key 
+        state: present
+    
+    - name: ensure the repository is configured
+      apt_repository: 
+        repo: 'deb https://pkg.jenkins.io/debian-stable binary/' 
+        state: present
+    
+    - name: update apt
+      apt:
+        update_cache: yes
+    
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: latest
+
+    - name: Jenkins Status
+      shell: sudo service jenkins status
+      register: jenkins_version
+    
+    - debug: 
+        var: jenkins_version
+
