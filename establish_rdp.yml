@@ -1,0 +1,20 @@
+---
+- name: Establish RDP
+  hosts: localhost
+  become: yes
+  tasks:
+
+    - name: update apt
+      apt:
+        update_cache: yes
+
+    - name: Install lxde
+      apt:
+        name: lxde
+        state: latest
+
+    - name: Install xrdp
+      apt:
+        name: xrdp
+        state: latest
+

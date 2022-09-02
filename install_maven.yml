@@ -1,0 +1,36 @@
+---
+- name: Install Maven
+  hosts: myinfra
+  become: yes
+  tasks:
+
+    - name: update apt
+      apt:
+        update_cache: yes
+
+    - name: Install openjdk-11-jre
+      apt:
+        name: openjdk-11-jre
+        state: latest
+        update_cache: yes
+  
+    - name: Java version
+      shell: java --version
+      register: Java_version
+     
+    - debug:
+        var: Java_version
+
+    - name: Install maven
+      apt:
+        name: maven
+        state: latest
+        update_cache: yes
+
+    - name: Maven version
+      shell: mvn --version
+      register: mvn_version
+
+    - debug:
+        var: mvn_version
+
