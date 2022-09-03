@@ -42,8 +42,16 @@
 
     - name: Jenkins Status
       shell: sudo service jenkins status
-      register: jenkins_version
+      register: jenkins_status
     
     - debug: 
-        var: jenkins_version
+        var: jenkins_status
+
+    - name: Jenkins version
+      shell: jenkins --version
+      register: Jenkins_version
+
+    - debug:
+        var: Jenkins_version
+
 
