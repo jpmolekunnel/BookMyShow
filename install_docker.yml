@@ -1,6 +1,6 @@
 ---
  - name: Setup Docker
-   hosts: myinfra
+   hosts: node.BookMyShow.com
    become: yes
    tasks:
      - name: Install docker dependencies
