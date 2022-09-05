@@ -1,5 +1,5 @@
 ---
- - name: Build Docker Container Image
+ - name: Build Docker Container Image and Run
    hosts: node.BookMyShow.com
    become: yes
    tasks:
@@ -22,3 +22,23 @@
 
      - name: Build Container Image
        shell: sudo docker build -t bookmyshow_userbook:latest /home/ubuntu/Docker-Work/
+       register: container_status
+
+     - debug:
+         var: container_status.stdout_lines
+
+
+     - name: Run Docker Image
+       shell: sudo docker run -d -p 8080:8080 bookmyshow_userbook
+       register: container
+
+     - debug:
+         var: container.stdout_lines
+
+     - name: Docker Status
+       shell: sudo docker ps
+       register: run_status
+
+     - debug:
+         var: run_status.stdout_lines
+
