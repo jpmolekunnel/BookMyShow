@@ -60,3 +60,9 @@
      - debug:
          var: docker_ps_run.stdout_lines
 
+     - name: Docker version
+       shell: docker --version
+       register: docker_version
+
+     - debug:
+         var: docker_version.stdout_lines

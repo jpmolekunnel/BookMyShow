@@ -19,7 +19,7 @@
       register: Java_version
      
     - debug:
-        var: Java_version
+        var: Java_version.stdout_lines
 
     - name: ensure the jenkins apt repository key is installed
       apt_key: 
@@ -45,13 +45,13 @@
       register: jenkins_status
     
     - debug: 
-        var: jenkins_status
+        var: jenkins_status.stdout_lines
 
     - name: Jenkins version
       shell: jenkins --version
       register: Jenkins_version
 
     - debug:
-        var: Jenkins_version
+        var: Jenkins_version.stdout_lines
 
 

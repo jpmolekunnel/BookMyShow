@@ -14,13 +14,6 @@
         state: latest
         update_cache: yes
   
-    - name: Java version
-      shell: java --version
-      register: Java_version
-     
-    - debug:
-        var: Java_version
-
     - name: Install maven
       apt:
         name: maven
@@ -32,5 +25,12 @@
       register: mvn_version
 
     - debug:
-        var: mvn_version
+        var: mvn_version.stdout_lines
+
+    - name: which java (JAVA_HOME)
+      shell: dirname $(dirname $(readlink -f $(which java)))
+      register: which_java
+
+    - debug:
+        var: which_java.stdout_lines
 
