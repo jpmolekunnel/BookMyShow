@@ -1,10 +1,10 @@
 ---
- - name: Setup Docker
+ - name: Build Docker Container Image
    hosts: node.BookMyShow.com
    become: yes
    tasks:
 
-     - name: create directory
+     - name: Create Directory
        file:
          path: /home/ubuntu/Docker-Work
          state: directory
@@ -15,10 +15,10 @@
      - name: Copy War file
        shell: cp -r /home/jenkins/workspace/BookMyShow/target/BookMyShow_UserBook-2.0.war /home/ubuntu/Docker-Work/
 
-     - name: copy Dockerfile
+     - name: Copy Dockerfile
        template: 
          src: Dockerfile
          dest: "/home/ubuntu/Docker-Work/Dockerfile"
 
-     - name: build container image
+     - name: Build Container Image
        shell: sudo docker build -t bookmyshow_userbook:latest /home/ubuntu/Docker-Work/
